@@ -22,10 +22,18 @@ app.use(stylus.middleware(
     }
 ));
 
-var port = 3030;
+var port = process.env.PORT || 3030;
 app.listen(port);
 console.log("Applicatin is started and listing on " + port + "...");
-mongoose.connect("mongodb://localhost/multivision");
+
+if(env === 'development'){
+    mongoose.connect("mongodb://localhost/multivision");
+}
+else{
+    mongoose.connect("mongodb://dbusr:dbusr1@ds025603.mlab.com:25603/mymongoasabhishek");
+}
+console.log(process.env.NODE_ENV);
+ 
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error...'));
 db.once('open', function callback() {
@@ -37,8 +45,8 @@ var msgSchema = new Schema({ message: String });
 
 var Message = mongoose.model('Message', msgSchema);
 module.exports = Message;
-var NewMessage = new Message({ message: "Hello World app" });
-NewMessage.save();
+// var NewMessage = new Message({ message: "Hello World app" });
+// NewMessage.save();
 
 var mdata;
 Message.find().exec(function(err, messageDoc){
