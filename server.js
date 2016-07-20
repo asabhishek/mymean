@@ -40,18 +40,18 @@ db.once('open', function callback() {
     console.log('multivision db opened');
 });
 
-var Schema = mongoose.Schema;
-var msgSchema = new Schema({ message: String });
+// //var Schema = mongoose.Schema;
+// //var msgSchema = new Schema({ message: String });
 
-var Message = mongoose.model('Message', msgSchema);
-module.exports = Message;
+// //var Message = mongoose.model('Message', msgSchema);
+// //module.exports = Message;
 // var NewMessage = new Message({ message: "Hello World app" });
 // NewMessage.save();
 
-var mdata;
-Message.find().exec(function(err, messageDoc){
-mdata=messageDoc[1].message;
-});
+// //var mdata;
+//// Message.find().exec(function(err, messageDoc){
+// //mdata=messageDoc[1].message;
+// // });
 
 // Message.find({}, function (err, messages) {
 //     return messages[1].message;
@@ -70,6 +70,7 @@ app.get('/partials/*', function (req, res) {
 });
 //this is from net few guys who are learning the same corse had fixed this.
 
+// 
 app.get('*', function (req, res) {
-    res.render('index', { mdata:mdata });
+    res.render('index');
 });     
