@@ -21,7 +21,11 @@ passport.use(new LocalStrategy(
             }
         })
     }));
-
+passport.serializeUser(function (user, done) {
+    if (user) {
+        done(null, user._id);
+    }
+});
 passport.deserializeUser(function (id, done) {
     User.findOne({ _id: id }).exec(function (err, user) {
         if (user) {
